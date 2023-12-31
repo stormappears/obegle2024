@@ -1,0 +1,79 @@
+.mainarea {
+  background: #ffebc6;
+  display: flex;
+}
+.mainarea .mainarea_right {
+  height: 100vh;
+  width: 50%;
+  gap: 1px;
+  display: flex;
+  flex-direction: column;
+}
+.mainarea .mainarea_right .container_remotevideo {
+  width: 691px;
+  height: 388px;
+  border: 1px solid #000;
+  background: #d9d9d9;
+  margin-top: 1px;
+}
+.mainarea .mainarea_right .container_remotevideo .remotevideo {
+  width: 691px;
+  height: 388px;
+}
+.mainarea .mainarea_right .container_uservideo {
+  width: 691px;
+  height: 388px;
+  border: 1px solid #000;
+  background: #d9d9d9;
+}
+.mainarea .mainarea_right .container_uservideo .uservideo {
+  width: 691px;
+  height: 388px;
+}
+.mainarea .mainarea_right .container_funboard {
+  width: 691px;
+  height: 78px;
+  border-radius: 7px;
+  border: 1px solid #000;
+  background: #fff1c1;
+}
+.mainarea .mainarea_right .container_funboard .funboard {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 3px;
+}
+.mainarea .mainarea_right .container_funboard .funboard .funboard_btn_autoskip {
+  width: 156px;
+  height: 65px;
+  border-radius: 5px;
+  border: 2px solid rgba(255, 97, 97, 0.47);
+  background: #ff3e3e;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+}
+.mainarea .mainarea_right .container_funboard .funboard .funboard_btn_scrshare {
+  width: 156px;
+  height: 65px;
+  border-radius: 5px;
+  background: #0646eb;
+  cursor: pointer;
+}
+.mainarea .mainarea_right .container_funboard .funboard .funboard_btn_memeboard {
+  width: 156px;
+  height: 65px;
+  border-radius: 5px;
+  background: #0646eb;
+  cursor: pointer;
+}
+.mainarea .mainarea_right .container_funboard .funboard .funboard_btn_sndboard {
+  width: 156px;
+  height: 65px;
+  border-radius: 5px;
+  background: #0646eb;
+  cursor: pointer;
+}/*# sourceMappingURL=mainarea.css.map */

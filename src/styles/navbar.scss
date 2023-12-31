@@ -1,0 +1,28 @@
+
+.navbar{
+    width: auto;
+    height: 70px;
+    background: #FFF;
+    box-shadow: 0px 2px 20.5px 0px rgba(0, 0, 0, 0.40);
+    display: flex;
+    justify-content: space-between;
+
+    .nav_logos{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 50px;
+
+        .nav_logo1_main{
+            width: 60px;
+            height: 60px;
+        }
+
+        .nav_logo2_text{
+            width: 250px;
+            height: 60px;
+        }
+    }
+    
+
+}
