@@ -1,30 +1,76 @@
 import { useEffect, useRef, useState } from "react";
 import "./../styles/mainarea.css";
 import Peer from "peerjs";
-import socket from 'socket.io-client'
+import io from "socket.io-client";
 
-// const peer = new Peer();
+//socket io connection
+const socket = io("http://localhost:3001/");
 
-const peerCofig = {
-  iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
-};
-const peerConnection = new RTCPeerConnection(peerCofig);
+//// esablish new peer instance here we generate our id
+const peer = new Peer();
+
 
 function Mainarea() {
-    const [peerId, setPeerId] = useState("");
-    const [remotePeerIdValue, setRemotePeerIdValue] = useState("");
-    const remoteVideoRef = useRef(null);
-    const currentUserVideoRef = useRef(null);
-    const peerInstance = useRef(null);
+  // states and refs for socket io
+  const [room, setRoom] = useState(" ");
 
-    const peer = new Peer();
-  
-  useEffect(() => {
+  // states and refs for peer js
+  const [peerId, setPeerId] = useState("");
+  const [remotePeerIdValue, setRemotePeerIdValue] = useState("");
+  const remoteVideoRef = useRef(null);
+  const currentUserVideoRef = useRef(null);
+  const peerInstance = useRef(null);
 
-    peer.on("open", (id) => {
-      setPeerId(id);
+  let keyrecived = false;
+
+  socket.io.on("ping", () => {
+    // ...
+  });
+
+  function handleNextClick() {
+    window.location.reload(false);
+    socket.on("disconnect", (reason) => {
+      console.log(reason);
     });
 
+    socket.on("connect", () => {
+      // ...
+    });
+  }
+
+  useEffect(() => {
+    socket.on("sendUserRoom", (data) => {
+      setRoom(data);
+      joinRoom();
+    });
+
+    socket.on("peer_reciver", (data) => {
+      call(data.id);
+      console.log("remote id :" + data.id);
+      // if (data.id.lenghth == 36) {
+      //   keyrecived = true;
+      //   console.log(data.id);
+      //     call(data.id);
+      // }
+    });
+  }, [socket]);
+
+  function joinRoom() {
+    if (room !== "") {
+      socket.emit("join_room", room);
+    }
+  }
+
+  //Generate and set peer id
+  peer.on("open", (id) => {
+    if (keyrecived == false) {
+      socket.emit("peerid", { id, room });
+    } else {
+      console.log("key already recived");
+    }
+  });
+
+  useEffect(() => {
     peer.on("call", (call) => {
       var getUserMedia =
         navigator.getUserMedia ||
@@ -64,8 +110,6 @@ function Mainarea() {
     });
   };
 
-
-
   return (
     <div className="mainarea">
       <div className="mainarea_right">
@@ -88,7 +132,7 @@ function Mainarea() {
         <div className="container_funboard">
           <div className="funboard">
             <h1>Current user id is {peerId}</h1>
-            
+
             {/* <div className="funboard_btn_autoskip">Skip</div>
             <div className="funboard_btn_scrshare"></div>
             <div className="funboard_btn_memeboard"></div>
