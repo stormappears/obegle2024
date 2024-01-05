@@ -3,20 +3,25 @@ import "./../styles/mainarea.css";
 import Peer from "peerjs";
 import io from "socket.io-client";
 
+//asset import
+import funBtn1 from "./../assets/buttons/btn1.png";
+import funBtn2 from "./../assets/buttons/btn2.png";
+import funBtn3 from "./../assets/buttons/btn3.png";
+import funBtn4 from "./../assets/buttons/btn4.png";
+
 //socket io connection
-const socket = io("http://localhost:3001/");
+const socket = io("https://nodeobegle.onrender.com/");
 
 //// esablish new peer instance here we generate our id
 const peer = new Peer();
-
 
 function Mainarea() {
   // states and refs for socket io
   const [room, setRoom] = useState(" ");
 
   // states and refs for peer js
-  const [peerId, setPeerId] = useState("");
-  const [remotePeerIdValue, setRemotePeerIdValue] = useState("");
+  // const [peerId, setPeerId] = useState("");
+  // const [remotePeerIdValue, setRemotePeerIdValue] = useState("");
   const remoteVideoRef = useRef(null);
   const currentUserVideoRef = useRef(null);
   const peerInstance = useRef(null);
@@ -110,6 +115,13 @@ function Mainarea() {
     });
   };
 
+
+  //function for handling chat  box input changes
+
+  const handleChatInput = (e) => {
+    console.log(e.target.value);
+  }
+
   return (
     <div className="mainarea">
       <div className="mainarea_right">
@@ -131,18 +143,31 @@ function Mainarea() {
         </div>
         <div className="container_funboard">
           <div className="funboard">
-            <h1>Current user id is {peerId}</h1>
-
-            {/* <div className="funboard_btn_autoskip">Skip</div>
-            <div className="funboard_btn_scrshare"></div>
-            <div className="funboard_btn_memeboard"></div>
-            <div className="funboard_btn_sndboard"></div> */}
+            <div onClick={handleNextClick} className="funboard_btn_autoskip">
+              <img src={funBtn1} alt="" />
+            </div>
+            <div className="funboard_btn_scrshare">
+              <img src={funBtn2} alt="" />
+            </div>
+            <div className="funboard_btn_memeboard">
+              <img src={funBtn3} alt="" />
+            </div>
+            <div className="funboard_btn_sndboard">
+              <img src={funBtn4} alt="" />
+            </div>
           </div>
         </div>
       </div>
       <div className="mainarea_left">
-        <div className="chatarea"></div>
-        <div className="chat_enter"></div>
+        <div className="chatarea">
+          <div className="chatview"></div>
+        </div>
+        <div className="chat_enter_area">
+          <div className="chattype">
+            <input type="text" onChange={handleChatInput} />
+            <button className="btn_sendchat">      </button>
+          </div>
+        </div>
       </div>
     </div>
   );
